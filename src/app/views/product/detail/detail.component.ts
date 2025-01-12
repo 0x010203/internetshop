@@ -22,6 +22,7 @@ export class DetailComponent implements OnInit {
   product!: ProductType;
 
   count: number = 1;
+  isLogged: boolean = false;
 
   serverStaticPath: string = environment.serverStaticPath;
 
@@ -108,6 +109,7 @@ export class DetailComponent implements OnInit {
           });
 
           if (this.authService.getIsLoggedIn()) {
+            this.isLogged = true;
             this.favoriteService
               .getFavorites()
               .subscribe((data: FavoriteType[] | DefaultResponseType) => {

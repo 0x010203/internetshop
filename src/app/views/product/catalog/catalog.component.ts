@@ -21,6 +21,7 @@ import { AuthService } from '../../../core/auth/auth.service';
   styleUrls: ['./catalog.component.scss'],
 })
 export class CatalogComponent implements OnInit {
+  //isLogged: boolean = false;
   products: ProductType[] = [];
   categoriesWithTypes: CategoryWithTypeType[] = [];
   favoriteProducts: FavoriteType[] | null = null;
@@ -62,6 +63,7 @@ export class CatalogComponent implements OnInit {
       this.cart = data as CartType;
 
       if (this.authService.getIsLoggedIn()) {
+        //this.isLogged = true;
         this.favoriteService.getFavorites().subscribe({
           next: (data: FavoriteType[] | DefaultResponseType) => {
             if ((data as DefaultResponseType).error !== undefined) {

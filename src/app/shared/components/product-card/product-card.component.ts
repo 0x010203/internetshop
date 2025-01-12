@@ -23,6 +23,8 @@ export class ProductCardComponent implements OnInit {
   //isInCart: boolean = false;
   @Input() countInCart: number | undefined = 0;
 
+  isLogged: boolean = false;
+
   constructor(
     private cartService: CartService,
     private authService: AuthService,
@@ -35,6 +37,7 @@ export class ProductCardComponent implements OnInit {
     if (this.countInCart && this.countInCart > 1) {
       this.count = this.countInCart;
     }
+    this.isLogged = this.authService.getIsLoggedIn();
   }
 
   addToCart() {
