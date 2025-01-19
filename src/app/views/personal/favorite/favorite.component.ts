@@ -124,7 +124,7 @@ export class FavoriteComponent implements OnInit {
       });
   }
 
-   addToCart(product: FavoriteType, value: number) {
+   addToCart(product: FavoriteType) {
     const itemCountsToAddToCart: CountToCartType | undefined = this.countsToAddToCart.find(item => item.idFavoriteProduct === product.id);
     let count: number  = 1;
     if (itemCountsToAddToCart){

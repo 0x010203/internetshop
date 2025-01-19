@@ -13,7 +13,7 @@
                 <div class="favorite-product-price">{{product.price}} BYN</div>
                 <div class="favorite-product-action">
                     <!-- <button class="button" routerLink="/product/{{product.url}}">Открыть</button> -->
-                    <button class="button" *ngIf="!product.countInCart || product.countInCart === 0" (click)="addToCart(product, 1)">
+                    <button class="button" *ngIf="!product.countInCart || product.countInCart === 0" (click)="addToCart(product)">
                         В корзину
                     </button>
                     <button class="button button-transparent button-in-cart"
