@@ -20,22 +20,28 @@ export class CartService {
   }
 
   getCart(): Observable<CartType | DefaultResponseType> {
-    return this.http.get<CartType | DefaultResponseType>(
-      environment.api + 'cart',
-      { withCredentials: true }
-    );
+    return this.http.get<CartType | DefaultResponseType>(environment.api + 'cart', { withCredentials: true })
+    // .pipe(
+    //   tap((data) => {
+    //     if (!data.hasOwnProperty('error')) {
+    //       let count = 0;
+    //       (data as CartType).items.forEach((item) => {
+    //         count += item.quantity;
+    //       });
+    //       this.setCount(count);
+    //     }
+    //   })
+    // )
+    ;
   }
+
   getCartCount(): Observable<{ count: number } | DefaultResponseType> {
     return this.http
-      .get<{ count: number } | DefaultResponseType>(
-        environment.api + 'cart/count',
-        { withCredentials: true }
-      )
+      .get<{ count: number } | DefaultResponseType>(environment.api + 'cart/count', { withCredentials: true })
       .pipe(
         tap((data) => {
           if (!data.hasOwnProperty('error')) {
             this.setCount((data as { count: number }).count);
-
             // this.count = (data as { count: number }).count;
             // this.count$.next(this.count);
           }
@@ -43,16 +49,9 @@ export class CartService {
       );
   }
 
-  updateCart(
-    productId: string,
-    quantity: number
-  ): Observable<CartType | DefaultResponseType> {
+  updateCart(productId: string, quantity: number): Observable<CartType | DefaultResponseType> {
     return this.http
-      .post<CartType | DefaultResponseType>(
-        environment.api + 'cart',
-        { productId, quantity },
-        { withCredentials: true }
-      )
+      .post<CartType | DefaultResponseType>(environment.api + 'cart', { productId, quantity }, { withCredentials: true })
       .pipe(
         tap((data) => {
           if (!data.hasOwnProperty('error')) {

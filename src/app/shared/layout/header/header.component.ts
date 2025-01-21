@@ -45,7 +45,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     //this.loaderService.show();
 
     this.searchField.valueChanges
@@ -68,6 +67,15 @@ export class HeaderComponent implements OnInit {
 
     this.authService.isLogged$.subscribe((isLoggedIn: boolean) => {
       this.isLogged = isLoggedIn;
+      //при логировании/разлогировании тоже будем запрашивать кол-во в корзине
+      this.cartService
+      .getCartCount()
+      .subscribe((data: { count: number } | DefaultResponseType) => {
+        if ((data as DefaultResponseType).error !== undefined) {
+          throw new Error((data as DefaultResponseType).message);
+        }
+        this.count = (data as { count: number }).count;
+      });
     });
 
     this.cartService
@@ -76,7 +84,6 @@ export class HeaderComponent implements OnInit {
         if ((data as DefaultResponseType).error !== undefined) {
           throw new Error((data as DefaultResponseType).message);
         }
-
         this.count = (data as { count: number }).count;
         //this.cartService.count = data.count;
 

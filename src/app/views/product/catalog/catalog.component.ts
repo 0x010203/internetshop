@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CategoryService } from '../../../shared/services/category.service';
 import { ProductService } from '../../../shared/services/product.service';
 import { ProductType } from '../../../../types/product.type';
@@ -239,9 +239,21 @@ export class CatalogComponent implements OnInit {
   openNextPage(): void {
     if (this.activeParams.page && this.activeParams.page < this.pages.length) {
       this.activeParams.page++;
-      this.router.navigate(['/catalog'], {
-        queryParams: this.activeParams,
-      });
+      this.router.navigate(['/catalog'], {queryParams: this.activeParams,});
     }
+    if (this.activeParams.page === undefined && this.pages.length>1) {
+    //в адресной строке не указана страница и у нас больше чем одна доступная страница
+      this.activeParams.page = 2;
+      this.router.navigate(['/catalog'], {queryParams: this.activeParams,});
+    }
+      
   }
+
+   @HostListener('document:click', ['$event'])
+    click(event: Event) {
+        if (this.sortingOpen && ((event.target as HTMLElement).className.indexOf('catalog-sorting') === -1)) {
+           this.sortingOpen = false;
+        }
+    
+    }
 }
